@@ -9,13 +9,13 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
+
   useEffect(() => {
-      const loggedInUser = CometChatUIKitLoginListener.getLoggedInUser();
-      if (loggedInUser) {
-          navigate("/", { replace: true });
-        }
-        
+    const loggedInUser = CometChatUIKitLoginListener.getLoggedInUser();
+    if (loggedInUser) {
+      navigate("/", { replace: true });
+    }
+
     const hasCredentials = appId && region && apiKey;
     if (!hasCredentials) {
       navigate("/credentials");
@@ -28,7 +28,7 @@ export default function Login() {
     setLoading(true);
     try {
       await CometChatUIKit.login(uid);
-      navigate("/home");
+      navigate("/");
     } catch (err) {
       setError("Login failed. Please check your UID.");
       console.error("Login error:", err);
@@ -74,6 +74,21 @@ export default function Login() {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+
+        <div className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+          Wrong credentials?{" "}
+          <button
+            onClick={() => {
+              localStorage.removeItem("appId");
+              localStorage.removeItem("region");
+              localStorage.removeItem("authKey");
+              navigate("/credentials");
+            }}
+            className="text-blue-600 hover:underline"
+          >
+            Change App Settings
+          </button>
+        </div>
       </div>
     </div>
   );

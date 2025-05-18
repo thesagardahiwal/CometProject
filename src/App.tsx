@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './screens/Login'
 import Home from './screens/Home'
+import Credentials from './screens/Credentials'
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
         <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/credentials' element={<Credentials />} />
         </Routes>
     </BrowserRouter>
   )
